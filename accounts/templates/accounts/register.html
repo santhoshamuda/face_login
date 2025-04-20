@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #f4f6f8; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 400px; }
+        .message { padding: 10px; border-radius: 5px; margin-bottom: 10px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        input, button { width: 100%; padding: 10px; margin-top: 10px; border-radius: 6px; border: 1px solid #ccc; }
+        .btn { background: #3498db; color: white; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn:hover { background: #2980b9; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Register</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+
+        <video id="video" width="320" height="240" autoplay></video>
+        <button type="button" class="btn" onclick="capture()">Capture Face</button>
+        <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+        <input type="hidden" name="face_data" id="face_data">
+
+        <button type="submit" class="btn">Register</button>
+    </form>
+
+    <a href="{% url 'home' %}"><button class="btn" style="margin-top: 10px;">Back to Home</button></a>
+</div>
+
+<script src="{% static 'accounts/js/webcam.js' %}"></script>
+</body>
+</html>
